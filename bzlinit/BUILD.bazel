@@ -1,0 +1,55 @@
+"""
+    SPDX-FileCopyrightText: Copyright 2024 Julian Amann <dev@vertexwahn.de>
+    SPDX-License-Identifier: Apache-2.0
+"""
+
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//bzlinit:copts/configure_copts.bzl",
+    "BZLINIT_DEFAULT_COPTS",
+)
+
+cc_library(
+    name = "command_line_arguments",
+    srcs = ["command_line_arguments.cpp"],
+    hdrs = ["command_line_arguments.h"],
+    deps = [
+        "@boost.program_options//:boost.program_options",
+    ],
+)
+
+cc_binary(
+    name = "bzlinit",
+    srcs = ["main.cpp"],
+    copts = BZLINIT_DEFAULT_COPTS,
+    deps = [
+        ":command_line_arguments",
+        "@boost.program_options//:boost.program_options",
+        "@nlohmann_json//:json",
+    ],
+)
+
+config_setting(
+    name = "msvc_compiler",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "msvc-cl",
+    },
+    visibility = [":__subpackages__"],
+)
+
+config_setting(
+    name = "gcc_compiler",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "gcc",
+    },
+    visibility = [":__subpackages__"],
+)
+
+config_setting(
+    name = "clang_compiler",
+    flag_values = {
+        "@bazel_tools//tools/cpp:compiler": "clang",
+    },
+    visibility = [":__subpackages__"],
+)

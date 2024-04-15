@@ -1,0 +1,6 @@
+# CLion
+.clwb
+
+# Bazel
+bazel*
+MODULE.bazel.lock

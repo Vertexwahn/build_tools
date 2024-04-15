@@ -1,0 +1,18 @@
+#
+# Why does this file exist?
+# This file is here to support "Import Bazel project..." from CLion Bazel Plugin.
+# Without the existence of this file this feature does not work.
+#
+
+new_local_repository(
+    name = "libgit2",
+    build_file_content = """
+cc_library(
+  name = "libgit2",
+  hdrs = glob(["include/**/*.h"]),
+  srcs = glob(["lib/*.dylib"]),
+  strip_include_prefix = "include",
+  visibility = ["//visibility:public"],
+)""",
+    path = "/opt/homebrew/Cellar/libgit2/1.7.2",
+)

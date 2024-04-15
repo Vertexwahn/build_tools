@@ -1,0 +1,7 @@
+# Bzlmod
+
+# Bazel feature: warn on invalid registry, e.g. this:
+
+common --registry=https://raw.githubusercontent.com/Vertexwahn/bazel-registry/main  # For boost
+#common --registry=https://raw.githubusercontent.com/Vertexwahn/bazel-central-registry/curl-7.69.1  # For curl
+common --registry=https://bcr.bazel.build

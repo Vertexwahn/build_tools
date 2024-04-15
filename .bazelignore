@@ -1,0 +1,7 @@
+.clwb
+bazel-bin
+bazel-bzlout
+bazel-out
+bazel-testlogs
+bcrupdate/modules
+romanesco

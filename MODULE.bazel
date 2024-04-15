@@ -1,0 +1,10 @@
+module(name = "build_tools")
+
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
+bazel_dep(name = "boost.program_options", version = "1.83.0.bcr.1")
+bazel_dep(name = "curl", version = "8.4.0")
+bazel_dep(name = "fmt", version = "10.2.1.bcr.1")
+bazel_dep(name = "googletest", version = "1.14.0.bcr.1")
+bazel_dep(name = "nlohmann_json", version = "3.11.3")
+bazel_dep(name = "platforms", version = "0.0.8")
+bazel_dep(name = "rules_pkg", version = "0.9.1")
