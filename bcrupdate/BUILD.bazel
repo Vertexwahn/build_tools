@@ -1,0 +1,180 @@
+"""
+    SPDX-FileCopyrightText: Copyright 2024 Julian Amann <dev@vertexwahn.de>
+    SPDX-License-Identifier: Apache-2.0
+"""
+
+cc_library(
+    name = "base64",
+    srcs = ["base64.cpp"],
+    hdrs = ["base64.h"],
+)
+
+cc_library(
+    name = "command_line_arguments",
+    srcs = ["command_line_arguments.cpp"],
+    hdrs = ["command_line_arguments.h"],
+    deps = [
+        "@boost.program_options//:boost.program_options",
+    ],
+)
+
+cc_library(
+    name = "filesystem",
+    srcs = ["filesystem.cpp"],
+    hdrs = ["filesystem.h"],
+)
+
+cc_test(
+    name = "filesystem_test",
+    size = "small",
+    srcs = ["filesystem_test.cpp"],
+    deps = [
+        ":filesystem",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "git_client",
+    srcs = ["git_client.cpp"],
+    hdrs = ["git_client.h"],
+    linkopts = [
+        "-lcurl",
+        "-lgit2",
+    ],
+    deps = select({
+        "@platforms//os:windows": [],
+        "@platforms//os:linux": [],
+        "@platforms//os:osx": ["@libgit2"],
+        "//conditions:default": [],
+    }),
+)
+
+cc_library(
+    name = "github_api",
+    srcs = ["github_api.cpp"],
+    hdrs = ["github_api.h"],
+    linkopts = [
+        "-lcurl",
+    ],
+    deps = [
+        ":base64",
+        ":semver",
+        "@fmt",
+        "@nlohmann_json//:json",
+    ],
+)
+
+cc_test(
+    name = "github_api_test",
+    size = "small",
+    srcs = ["github_api_test.cpp"],
+    deps = [
+        ":github_api",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_binary(
+    name = "bcrupdate.cli",
+    srcs = ["main.cpp"],
+    #data = glob(["modules/**/*.*"]),
+    data = [
+        "modules/catch2/MODULE.bazel",
+        "modules/catch2/patches/module_dot_bazel.patch",
+        "modules/catch2/presubmit.yml",
+        "modules/catch2/source.json",
+        "modules/embree/MODULE.bazel",
+        "modules/embree/patches/default_h.patch",
+        "modules/embree/patches/device_cpp.patch",
+        "modules/embree/patches/module_dot_bazel.patch",
+        "modules/embree/patches/rtcore_common_h.patch",
+        "modules/embree/patches/rtcore_h.patch",
+        "modules/embree/presubmit.yml",
+        "modules/embree/source.json",
+        "modules/glm/MODULE.bazel",
+        "modules/glm/patches/add_build_file.patch",
+        "modules/glm/patches/add_module_dot_bazel.patch",
+        "modules/glm/presubmit.yml",
+        "modules/glm/source.json",
+        "modules/glog/MODULE.bazel",
+        "modules/glog/patches/module_dot_bazel.patch",
+        "modules/glog/presubmit.yml",
+        "modules/glog/source.json",
+        "modules/imath/MODULE.bazel",
+        "modules/imath/patches/add_build_file.patch",
+        "modules/imath/patches/module_dot_bazel.patch",
+        "modules/imath/presubmit.yml",
+        "modules/imath/source.json",
+        "modules/libdeflate/MODULE.bazel",
+        "modules/libdeflate/patches/add_build_file.patch",
+        "modules/libdeflate/patches/module_dot_bazel.patch",
+        "modules/libdeflate/presubmit.yml",
+        "modules/libdeflate/source.json",
+        "modules/libpng/MODULE.bazel",
+        "modules/libpng/patches/add_build_file.patch",
+        "modules/libpng/patches/module_dot_bazel.patch",
+        "modules/libpng/presubmit.yml",
+        "modules/libpng/source.json",
+        "modules/libwebp/MODULE.bazel",
+        "modules/libwebp/patches/add_build_file.patch",
+        "modules/libwebp/patches/module_dot_bazel.patch",
+        "modules/libwebp/presubmit.yml",
+        "modules/libwebp/source.json",
+        "modules/nanoflann/MODULE.bazel",
+        "modules/nanoflann/patches/add_build_file.patch",
+        "modules/nanoflann/patches/module_dot_bazel.patch",
+        "modules/nanoflann/presubmit.yml",
+        "modules/nanoflann/source.json",
+        "modules/onetbb/MODULE.bazel",
+        "modules/onetbb/patches/module_dot_bazel.patch",
+        "modules/onetbb/presubmit.yml",
+        "modules/onetbb/source.json",
+        "modules/openexr/MODULE.bazel",
+        "modules/openexr/patches/module_dot_bazel.patch",
+        "modules/openexr/presubmit.yml",
+        "modules/openexr/source.json",
+        "modules/zlib/MODULE.bazel",
+        "modules/zlib/patches/add_build_file.patch",
+        "modules/zlib/patches/module_dot_bazel.patch",
+        "modules/zlib/presubmit.yml",
+        "modules/zlib/source.json",
+        #"modules/embree/patches/bazel_build.patch",
+    ],
+    linkopts = [
+        "-lcurl",
+        "-lgit2",
+    ],
+    deps = [
+        ":string",
+        ":filesystem",
+        ":github_api",
+        ":command_line_arguments",
+        "//bcrupdate/index_registry/module:metadata",
+        "//bcrupdate/index_registry/module:metadata_io",
+        "@boost.program_options//:boost.program_options",
+        #"@curl",
+        ":git_client",
+        "@nlohmann_json//:json",
+        ":base64",
+    ],
+)
+
+cc_library(
+    name = "semver",
+    hdrs = ["semver.hpp"],
+)
+
+cc_library(
+    name = "string",
+    srcs = ["string.cpp"],
+    hdrs = ["string.h"],
+)
+
+cc_binary(
+    name = "testbed",
+    srcs = ["testbed.cpp"],
+    linkopts = [
+        "-lcurl",
+    ],
+)

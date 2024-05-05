@@ -1,0 +1,31 @@
+"""
+    SPDX-FileCopyrightText: Copyright 2022-2023 Julian Amann <dev@vertexwahn.de>
+    SPDX-License-Identifier: Apache-2.0
+"""
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "metadata",
+    hdrs = ["metadata.h"],
+)
+
+cc_library(
+    name = "metadata_io",
+    srcs = ["metadata_io.cpp"],
+    hdrs = ["metadata_io.h"],
+    deps = [
+        ":metadata",
+        "@nlohmann_json//:json",
+    ],
+)
+
+cc_test(
+    name = "metadata_io_test",
+    srcs = ["metadata_io_test.cpp"],
+    deps = [
+        ":metadata",
+        ":metadata_io",
+        "@googletest//:gtest_main",
+    ],
+)

@@ -1,0 +1,10 @@
+{
+    "integrity": "",
+    "patch_strip": 0,
+    "patches": {
+        "remove_only_the_first_leading_at.patch": "",
+        "module_dot_bazel.patch": ""
+    },
+    "strip_prefix": "glog-@VERSION@",
+    "url": "https://github.com/google/glog/archive/refs/tags/v@VERSION@.tar.gz"
+}
