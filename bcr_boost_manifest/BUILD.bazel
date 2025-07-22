@@ -1,0 +1,47 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
+py_library(
+    name = "boost_dependencies",
+    srcs = ["boost_dependencies.py"],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "boost_downloader",
+    srcs = ["boost_downloader.py"],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "generate_bcr_modules",
+    srcs = ["generate_bcr_modules.py"],
+    deps = [
+        ":boost_dependencies",
+        ":boost_downloader",
+    ],
+    imports = ["."],
+    main = "generate_bcr_modules.py",
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "boost_markdown_generator",
+    srcs = ["boost_markdown_generator.py"],
+    deps = [":boost_dependencies"],
+    imports = ["."],
+    main = "boost_markdown_generator.py",
+    visibility = ["//visibility:public"],
+)
+
+py_test(
+    name = "generate_bcr_modules_test",
+    srcs = ["generate_bcr_modules_test.py"],
+    deps = [
+        ":boost_dependencies",
+        ":boost_downloader",
+        "@pypi//pytest",
+    ],
+    imports = ["."],
+)
