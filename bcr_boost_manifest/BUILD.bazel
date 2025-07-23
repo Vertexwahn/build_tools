@@ -8,6 +8,13 @@ py_library(
 )
 
 py_library(
+    name = "boost_1_88_0_copy_existing_files",
+    srcs = ["boost_1_88_0_copy_existing_files.py"],
+    imports = ["."],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
     name = "boost_downloader",
     srcs = ["boost_downloader.py"],
     imports = ["."],
@@ -20,6 +27,7 @@ py_binary(
     deps = [
         ":boost_dependencies",
         ":boost_downloader",
+        ":boost_1_88_0_copy_existing_files",
     ],
     imports = ["."],
     main = "generate_bcr_modules.py",

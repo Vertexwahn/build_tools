@@ -1,7 +1,6 @@
 # Based on list from https://pdimov.github.io/boostdep-report/boost-1.88.0/module-levels.html
-# TODO: Generate this list automatically
 
-BOOST_1_88_0_DEPS = {
+BOOST_1_88_0_DEPS_WITH_LEVELS = {
     "level 0": {
         "callable_traits": [],
         "config": [],
@@ -18,9 +17,16 @@ BOOST_1_88_0_DEPS = {
         "ratio": [],
     },
     "level 1": {
+        "assert": ["boost.config"],
+        "describe": ["boost.mp11"],
         "endian": ["boost.config"],
+        "io": ["boost.config"],
+        "move": ["boost.config"],
+        "polygon": ["boost.config"],
+        "static_assert": ["boost.config"],
+        "typeof": ["boost.config"],
         "vmd": ["boost.preprocessor"],
-        "winapi": ["boost.config", "boost.preprocessor"],
+        "winapi": ["boost.config", "boost.predef"],
     },
     "level 2": {
         "container_hash": ["boost.config", "boost.describe", "boost.mp11"],
@@ -42,14 +48,9 @@ BOOST_1_88_0_DEPS = {
             "boost.config",
             "boost.preprocessor",
             "boost.static_assert",
-            "type_traits",
+            "boost.type_traits",
         ],
-        "container": [
-            "boost.assert",
-            "boost.config",
-            "boost.intrusive",
-            "boost.move",
-        ],
+        "container": ["boost.assert", "boost.config", "boost.intrusive", "boost.move"],
         "core": [
             "boost.assert",
             "boost.config",
@@ -63,18 +64,19 @@ BOOST_1_88_0_DEPS = {
             "boost.describe",
             "boost.mp11",
         ],
-        "uuid": [
-            "boost.assert",
-            "boost.config",
-            "boost.throw_exception",
-            "boost.type_traits",
-        ],
+        "stl_interfaces": ["boost.assert", "boost.config", "boost.type_traits"],
         "system": [
             "boost.assert",
             "boost.config",
             "boost.throw_exception",
             "boost.variant2",
             "boost.winapi",
+        ],
+        "uuid": [
+            "boost.assert",
+            "boost.config",
+            "boost.throw_exception",
+            "boost.type_traits",
         ],
     },
     "level 4": {
@@ -1646,6 +1648,32 @@ BOOST_1_88_0_DEPS = {
             "boost.variant",
         ],
     },
+}
+
+
+BOOST_1_88_0_DEPS = {
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 0"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 1"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 2"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 3"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 4"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 5"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 6"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 7"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 8"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 9"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 10"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 11"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 12"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 13"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 14"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 15"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 16"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 17"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 18"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 19"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 20"],
+    **BOOST_1_88_0_DEPS_WITH_LEVELS["level 21"],
 }
 
 
