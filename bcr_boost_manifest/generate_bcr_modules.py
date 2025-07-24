@@ -137,6 +137,11 @@ def create_overlay_module_symlink(
     overlay_dir = f"{bcr_workspace_directory}/modules/boost.{boost_library_name}/{boost_library_version}/overlay"
     src = "../MODULE.bazel"
     dst = os.path.join(overlay_dir, "MODULE.bazel")
+    if platform.system() == "Windows":
+        print(
+            "Warning: Symlinks are not supported on Windows (Maybe someone finds a fix for this)."
+        )
+        return
     # Only create symlink if it doesn't already exist
     if not os.path.exists(dst):
         os.symlink(src, dst)
@@ -167,7 +172,7 @@ def copy_existing_boost_files(
                 if not os.path.exists(dst_dir):
                     os.makedirs(dst_dir, exist_ok=True)
                 shutil.copy2(full_src_path, full_dst_path)
-                print(f"Copied {full_src_path} to {full_dst_path}")
+                #print(f"Copied {full_src_path} to {full_dst_path}")
             else:
                 print(f"Warning: Source file {full_src_path} does not exist")
 
@@ -197,6 +202,8 @@ def main():
     BCR_WORKSPACE_DIRECTORY = args.bcr_workspace_directory
 
     RULES_CC_VERSION = "0.1.3"
+    SKYLIB_VERSION = "1.8.1"
+    PLATFORM_VERSION = "1.0.0"
 
     # Derive BOOST_COMPATIBILITY_LEVEL from BOOST_LIBRARY_VERSION, e.g., 1.88.0 -> 108800
     version_parts = BOOST_LIBRARY_VERSION.split(".")
@@ -231,7 +238,7 @@ def main():
     deps += generate_module_dependency_content("rules_cc", RULES_CC_VERSION)
 
     module_content = header + "\n" + deps
-    print(module_content)
+    #print(module_content)
     save_content_as_file(
         module_content,
         f"{BCR_WORKSPACE_DIRECTORY}/modules/boost.{BOOST_LIBRARY_NAME}/{BCR_BOOST_LIBRARY_VERSION}/MODULE.bazel",
@@ -245,7 +252,7 @@ def main():
         "sha256-TLoGSRQk/a7XII9H9SSHJbL0to9/osiUQRzFrJe869E=",
         "sha256-TLoGSRQk/a7XII9H9SSHJbL0to9/osiUQRzFrJe869E=",
     )
-    print(source_json_content)
+    #print(source_json_content)
     save_content_as_file(
         source_json_content,
         f"{BCR_WORKSPACE_DIRECTORY}/modules/boost.{BOOST_LIBRARY_NAME}/{BCR_BOOST_LIBRARY_VERSION}/source.json",
@@ -254,18 +261,20 @@ def main():
     overlay_build_file_content = generate_boost_build_bazel_content(
         BOOST_LIBRARY_NAME, BOOST_LIBRARY_DIRECT_DEPS
     )
-    print(overlay_build_file_content)
+    #print(overlay_build_file_content)
     save_content_as_file(
         overlay_build_file_content,
         f"{BCR_WORKSPACE_DIRECTORY}/modules/boost.{BOOST_LIBRARY_NAME}/{BCR_BOOST_LIBRARY_VERSION}/overlay/BUILD.bazel",
     )
 
     presubmit_content = generate_boost_presubmit_yml_content(BOOST_LIBRARY_NAME)
-    print(presubmit_content)
+    #print(presubmit_content)
     save_content_as_file(
         presubmit_content,
         f"{BCR_WORKSPACE_DIRECTORY}/modules/boost.{BOOST_LIBRARY_NAME}/{BCR_BOOST_LIBRARY_VERSION}/presubmit.yml",
     )
+
+    print("Execute the following commands in our BCR directory:")
 
     generate_buildifier_command_output(
         BOOST_LIBRARY_NAME,
@@ -275,12 +284,12 @@ def main():
     )
 
     print(f"bazel run //tools:update_integrity -- boost.{BOOST_LIBRARY_NAME}")
-    print(f"git checkout -b boost.{BOOST_LIBRARY_NAME}@{BCR_BOOST_LIBRARY_VERSION}")
+    #print(f"git checkout -b boost.{BOOST_LIBRARY_NAME}@{BCR_BOOST_LIBRARY_VERSION}")
     print(f"git add .")
     print(f'git commit -m "boost.{BOOST_LIBRARY_NAME}@{BCR_BOOST_LIBRARY_VERSION}"')
-    print(
-        f"git push --set-upstream origin boost.{BOOST_LIBRARY_NAME}@{BCR_BOOST_LIBRARY_VERSION}"
-    )
+    #print(
+    #    f"git push --set-upstream origin boost.{BOOST_LIBRARY_NAME}@{BCR_BOOST_LIBRARY_VERSION}"
+    #)
 
     copy_existing_boost_files(
         BOOST_LIBRARY_NAME,

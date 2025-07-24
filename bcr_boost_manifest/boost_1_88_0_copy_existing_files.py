@@ -42,8 +42,14 @@ BOOST_1_88_0_LIBRARY_COPY_EXISTING_FILES = {
     "compute": {
         "overlay/BUILD.bazel": "modules/boost.compute/1.87.0/overlay/BUILD.bazel",
     },
+    "container": {
+        "overlay/BUILD.bazel": "modules/boost.container/1.87.0.bcr.2/overlay/BUILD.bazel",
+        "overlay/gen_test_targets.bzl": "modules/boost.container/1.87.0.bcr.2/overlay/gen_test_targets.bzl",
+        "presubmit.yml": "modules/boost.container/1.87.0.bcr.2/presubmit.yml",
+    },
     "context": {
-        "overlay/BUILD.bazel": "modules/boost.context/1.87.0/overlay/BUILD.bazel",
+        "overlay/BUILD.bazel": "modules/boost.context/1.87.0.bcr.2/overlay/BUILD.bazel",
+        "presubmit.yml": "modules/boost.context/1.87.0.bcr.2/presubmit.yml",
     },
     "contract": {
         "overlay/BUILD.bazel": "modules/boost.contract/1.87.0/overlay/BUILD.bazel",
@@ -67,6 +73,7 @@ BOOST_1_88_0_LIBRARY_COPY_EXISTING_FILES = {
         "overlay/BUILD.bazel": "modules/boost.detail/1.87.0/overlay/BUILD.bazel",
         "overlay/test/BUILD.bazel": "modules/boost.detail/1.87.0/overlay/test/BUILD.bazel",
         "overlay/test/MODULE.bazel": "modules/boost.detail/1.87.0/overlay/test/MODULE.bazel",
+        "presubmit.yml": "modules/boost.detail/1.87.0/presubmit.yml",
     },
     "dll": {
         "overlay/BUILD.bazel": "modules/boost.dll/1.87.0/overlay/BUILD.bazel",
@@ -258,6 +265,9 @@ BOOST_1_88_0_LIBRARY_COPY_EXISTING_FILES = {
     "redis": {
         "overlay/BUILD.bazel": "modules/boost.redis/1.87.0/overlay/BUILD.bazel",
     },
+    "regex": {
+        "overlay/BUILD.bazel": "modules/boost.regex/1.87.0/overlay/BUILD.bazel",
+    },
     "safe_numerics": {
         "overlay/BUILD.bazel": "modules/boost.safe_numerics/1.87.0/overlay/BUILD.bazel",
     },
@@ -299,6 +309,13 @@ BOOST_1_88_0_LIBRARY_COPY_EXISTING_FILES = {
     },
     "url": {
         "overlay/BUILD.bazel": "modules/boost.url/1.87.0/overlay/BUILD.bazel",
+        "presubmit.yml": "modules/boost.url/1.87.0/presubmit.yml",
+    },
+    "variant": {
+        "overlay/BUILD.bazel": "modules/boost.variant/1.87.0/overlay/BUILD.bazel",
+    },
+    "variant2": {
+        "overlay/BUILD.bazel": "modules/boost.variant2/1.87.0/overlay/BUILD.bazel",
     },
     "wave": {
         "overlay/BUILD.bazel": "modules/boost.wave/1.87.0/overlay/BUILD.bazel",
